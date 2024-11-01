@@ -23,6 +23,10 @@ include_directories(${INCLUDE_DIR})
 # 定义库文件
 if(UNIX OR (CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU"))
     add_library(thulac_static STATIC ${SRC_DIR}/thulac_so.cc ${INCLUDE_DIR}/thulac_lib.cc)
+    target_include_directories(thulac_static
+            PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+            PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    )
     add_library(thulac_shared SHARED ${SRC_DIR}/thulac_so.cc ${INCLUDE_DIR}/thulac_lib.cc)
     set_target_properties(thulac_shared PROPERTIES
             OUTPUT_NAME "thulac"
